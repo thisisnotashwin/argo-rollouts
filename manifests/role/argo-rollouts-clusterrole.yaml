@@ -173,6 +173,18 @@ rules:
   - get
   - update
   - patch
+  # trafficsplit access needed for using the SMI provider
+- apiGroups:
+    - consul.hashicorp.com
+  resources:
+    - servicesplitters
+    - serviceresolvers
+  verbs:
+    - create
+    - watch
+    - get
+    - update
+    - patch
 # ambassador access needed for Ambassador provider
 - apiGroups:
   - getambassador.io

@@ -171,6 +171,17 @@ rules:
   - update
   - patch
 - apiGroups:
+  - consul.hashicorp.com
+  resources:
+  - servicesplitters
+  - serviceresolvers
+  verbs:
+  - create
+  - watch
+  - get
+  - update
+  - patch
+- apiGroups:
   - getambassador.io
   - x.getambassador.io
   resources:

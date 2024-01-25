@@ -63,6 +63,8 @@ const (
 	DefaultTraefikVersion               = "traefik.containo.us/v1alpha1"
 	DefaultApisixAPIGroup               = "apisix.apache.org"
 	DefaultApisixVersion                = "apisix.apache.org/v2"
+	DefaultConsulAPIGroup               = "consul.hashicorp.com"
+	DefaultConsulVersion                = "v1alpha1"
 )
 
 var (

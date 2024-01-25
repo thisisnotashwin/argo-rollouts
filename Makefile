@@ -50,7 +50,6 @@ endif
 define protoc
 	# protoc $(1)
     PATH=${DIST_DIR}:$$PATH protoc \
-      -I /usr/local/include \
       -I ${DIST_DIR}/protoc-include \
       -I . \
       -I ./vendor \

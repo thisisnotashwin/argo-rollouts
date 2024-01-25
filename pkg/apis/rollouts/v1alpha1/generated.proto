@@ -614,6 +614,14 @@ message ClusterAnalysisTemplateList {
   repeated ClusterAnalysisTemplate items = 2;
 }
 
+message ConsulTrafficRouting {
+  optional string serviceName = 1;
+
+  optional string canarySubsetName = 2;
+
+  optional string stableSubsetName = 3;
+}
+
 message DatadogMetric {
   // +kubebuilder:default="5m"
   // Interval refers to the Interval time window in Datadog (default: 5m). Not to be confused with the polling rate for the metric.
@@ -1568,18 +1576,21 @@ message RolloutTrafficRouting {
   // Traefik holds specific configuration to use Traefik to route traffic
   optional TraefikTrafficRouting traefik = 7;
 
+  // Consul holds specific configuration to use Consul to route traffic. Currently only supports subset routing.
+  optional ConsulTrafficRouting consul = 8;
+
   // ManagedRoutes A list of HTTP routes that Argo Rollouts manages, the order of this array also becomes the precedence in the upstream
   // traffic router.
-  repeated MangedRoutes managedRoutes = 8;
+  repeated MangedRoutes managedRoutes = 9;
 
   // Apisix holds specific configuration to use Apisix to route traffic
-  optional ApisixTrafficRouting apisix = 9;
+  optional ApisixTrafficRouting apisix = 10;
 
   // +kubebuilder:validation:Schemaless
   // +kubebuilder:pruning:PreserveUnknownFields
   // +kubebuilder:validation:Type=object
   // Plugins holds specific configuration that traffic router plugins can use for routing traffic
-  map<string, bytes> plugins = 10;
+  map<string, bytes> plugins = 11;
 }
 
 message RouteMatch {

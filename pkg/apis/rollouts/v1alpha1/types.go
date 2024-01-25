@@ -374,16 +374,18 @@ type RolloutTrafficRouting struct {
 	AppMesh *AppMeshTrafficRouting `json:"appMesh,omitempty" protobuf:"bytes,6,opt,name=appMesh"`
 	// Traefik holds specific configuration to use Traefik to route traffic
 	Traefik *TraefikTrafficRouting `json:"traefik,omitempty" protobuf:"bytes,7,opt,name=traefik"`
+	// Consul holds specific configuration to use Consul to route traffic. Currently only supports subset routing.
+	Consul *ConsulTrafficRouting `json:"consul,omitempty" protobuf:"bytes,8,opt,name=consul"`
 	// ManagedRoutes A list of HTTP routes that Argo Rollouts manages, the order of this array also becomes the precedence in the upstream
 	// traffic router.
-	ManagedRoutes []MangedRoutes `json:"managedRoutes,omitempty" protobuf:"bytes,8,rep,name=managedRoutes"`
+	ManagedRoutes []MangedRoutes `json:"managedRoutes,omitempty" protobuf:"bytes,9,rep,name=managedRoutes"`
 	// Apisix holds specific configuration to use Apisix to route traffic
-	Apisix *ApisixTrafficRouting `json:"apisix,omitempty" protobuf:"bytes,9,opt,name=apisix"`
+	Apisix *ApisixTrafficRouting `json:"apisix,omitempty" protobuf:"bytes,10,opt,name=apisix"`
 	// +kubebuilder:validation:Schemaless
 	// +kubebuilder:pruning:PreserveUnknownFields
 	// +kubebuilder:validation:Type=object
 	// Plugins holds specific configuration that traffic router plugins can use for routing traffic
-	Plugins map[string]json.RawMessage `json:"plugins,omitempty" protobuf:"bytes,10,opt,name=plugins"`
+	Plugins map[string]json.RawMessage `json:"plugins,omitempty" protobuf:"bytes,11,opt,name=plugins"`
 }
 
 type MangedRoutes struct {
@@ -464,6 +466,12 @@ type IstioVirtualService struct {
 	TLSRoutes []TLSRoute `json:"tlsRoutes,omitempty" protobuf:"bytes,3,rep,name=tlsRoutes"`
 	// A list of TCP routes within VirtualService to edit. If omitted, VirtualService must have a single route of this type.
 	TCPRoutes []TCPRoute `json:"tcpRoutes,omitempty" protobuf:"bytes,4,rep,name=tcpRoutes"`
+}
+
+type ConsulTrafficRouting struct {
+	ServiceName      string `json:"serviceName" protobuf:"bytes,1,opt,name=serviceName"`
+	CanarySubsetName string `json:"canarySubsetName" protobuf:"bytes,2,opt,name=canarySubsetName"`
+	StableSubsetName string `json:"stableSubsetName" protobuf:"bytes,3,opt,name=stableSubsetName"`
 }
 
 // TLSRoute holds the information on the virtual service's TLS/HTTPS routes that are desired to be matched for changing weights.

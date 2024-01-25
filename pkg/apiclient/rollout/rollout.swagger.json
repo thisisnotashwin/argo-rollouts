@@ -1157,6 +1157,20 @@
         }
       }
     },
+    "github.com.argoproj.argo_rollouts.pkg.apis.rollouts.v1alpha1.ConsulTrafficRouting": {
+      "type": "object",
+      "properties": {
+        "serviceName": {
+          "type": "string"
+        },
+        "canarySubsetName": {
+          "type": "string"
+        },
+        "stableSubsetName": {
+          "type": "string"
+        }
+      }
+    },
     "github.com.argoproj.argo_rollouts.pkg.apis.rollouts.v1alpha1.DatadogMetric": {
       "type": "object",
       "properties": {
@@ -2261,6 +2275,10 @@
         "traefik": {
           "$ref": "#/definitions/github.com.argoproj.argo_rollouts.pkg.apis.rollouts.v1alpha1.TraefikTrafficRouting",
           "title": "Traefik holds specific configuration to use Traefik to route traffic"
+        },
+        "consul": {
+          "$ref": "#/definitions/github.com.argoproj.argo_rollouts.pkg.apis.rollouts.v1alpha1.ConsulTrafficRouting",
+          "description": "Consul holds specific configuration to use Consul to route traffic. Currently only supports subset routing."
         },
         "managedRoutes": {
           "type": "array",

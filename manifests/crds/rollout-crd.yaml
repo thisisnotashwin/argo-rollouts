@@ -814,6 +814,19 @@ spec:
                                 - name
                                 type: object
                             type: object
+                          consul:
+                            properties:
+                              canarySubsetName:
+                                type: string
+                              serviceName:
+                                type: string
+                              stableSubsetName:
+                                type: string
+                            required:
+                            - canarySubsetName
+                            - serviceName
+                            - stableSubsetName
+                            type: object
                           istio:
                             properties:
                               destinationRule:

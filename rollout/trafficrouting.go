@@ -6,6 +6,7 @@ import (
 	"strconv"
 	"strings"
 
+	"github.com/argoproj/argo-rollouts/rollout/trafficrouting/consul"
 	"github.com/argoproj/argo-rollouts/utils/annotations"
 
 	"github.com/argoproj/argo-rollouts/rollout/trafficrouting/plugin"
@@ -97,6 +98,17 @@ func (c *Controller) NewTrafficRoutingReconciler(roCtx *rolloutContext) ([]traff
 			Rollout:  rollout,
 			Client:   dynamicClient,
 			Recorder: c.recorder,
+		}))
+	}
+
+	if rollout.Spec.Strategy.Canary.TrafficRouting.Consul != nil {
+		dynamicSplitterClient := consul.NewSplitterDynamicClient(c.dynamicclientset, rollout.GetNamespace())
+		dynamicResolverClient := consul.NewResolverDynamicClient(c.dynamicclientset, rollout.GetNamespace())
+		trafficReconcilers = append(trafficReconcilers, consul.NewReconciler(&consul.ReconcilerConfig{
+			Rollout:        rollout,
+			SplitterClient: dynamicSplitterClient,
+			ResolverClient: dynamicResolverClient,
+			Recorder:       c.recorder,
 		}))
 	}
 

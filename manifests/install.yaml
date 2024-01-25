@@ -12669,6 +12669,19 @@ spec:
                                 - name
                                 type: object
                             type: object
+                          consul:
+                            properties:
+                              canarySubsetName:
+                                type: string
+                              serviceName:
+                                type: string
+                              stableSubsetName:
+                                type: string
+                            required:
+                            - canarySubsetName
+                            - serviceName
+                            - stableSubsetName
+                            type: object
                           istio:
                             properties:
                               destinationRule:
@@ -15718,6 +15731,17 @@ rules:
   - split.smi-spec.io
   resources:
   - trafficsplits
+  verbs:
+  - create
+  - watch
+  - get
+  - update
+  - patch
+- apiGroups:
+  - consul.hashicorp.com
+  resources:
+  - servicesplitters
+  - serviceresolvers
   verbs:
   - create
   - watch
